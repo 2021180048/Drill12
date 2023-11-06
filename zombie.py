@@ -15,6 +15,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 10.0
+FRAMES_PER_TIME = FRAMES_PER_ACTION * ACTION_PER_TIME
 
 animation_names = ['Walk']
 
@@ -25,7 +26,7 @@ class Zombie:
         if Zombie.images == None:
             Zombie.images = {}
             for name in animation_names:
-                Zombie.images[name] = [load_image("./zombie/"+ name + " (%d)" % i + ".png") for i in range(1, 11)]
+                Zombie.images[name] = [load_image(f"./zombie/{name} ({i}).png") for i in range(1, 11)]
 
     def __init__(self):
         self.x, self.y = random.randint(1600-800, 1600), 150
@@ -38,7 +39,7 @@ class Zombie:
 
 
     def update(self):
-        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
+        self.frame = (self.frame + FRAMES_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
         self.x += RUN_SPEED_PPS * self.dir * game_framework.frame_time
         if self.x > 1600:
             self.dir = -1
