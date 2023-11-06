@@ -123,12 +123,15 @@ class Sleep:
     @staticmethod
     def enter(boy, e):
         boy.frame = 0
-        boy.x1, boy.y1, boy.x2, boy.y2 = 70, 40, 20, 5
+        if boy.face_dir == 1:
+            boy.x1, boy.y1, boy.x2, boy.y2 = 70, 40, 10, -10
+        else:
+            boy.x1, boy.y1, boy.x2, boy.y2 = 10, 40, 70, -10
         pass
 
     @staticmethod
     def exit(boy, e):
-        boy.x1, boy.y1, boy.x2, boy.y2 = 20, 50, 20, 50
+        boy.x1, boy.y1, boy.x2, boy.y2 = 20, 40, 20, 40
         pass
 
     @staticmethod
@@ -176,9 +179,6 @@ class StateMachine:
         self.cur_state.draw(self.boy)
 
 
-
-
-
 class Boy:
     def __init__(self):
         self.x, self.y = 50, 90
@@ -191,7 +191,7 @@ class Boy:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.ball_count = 10
-        self.x1, self.y1, self.x2, self.y2 = 20, 50, 20, 50
+        self.x1, self.y1, self.x2, self.y2 = 20, 40, 20, 40
 
 
     def fire_ball(self):

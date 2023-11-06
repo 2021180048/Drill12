@@ -50,7 +50,7 @@ class Zombie:
         if self.hit == 1:
             self.size = 100
             self.y = 100
-            self.x1, self.y1, self.x2, self.y2 = 20, 30, 20, 30
+            self.x1, self.y1, self.x2, self.y2 = 20, 40, 20, 40
         elif self.hit == 2:
             game_world.remove_object(self)
         pass
