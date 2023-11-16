@@ -1,7 +1,6 @@
 # 이것은 각 상태들을 객체로 구현한 것임.
 
-from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, \
-    draw_rectangle
+from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, draw_rectangle
 from ball import Ball
 import game_world
 import game_framework
@@ -12,14 +11,11 @@ import game_framework
 def right_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
 
-
 def right_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_RIGHT
 
-
 def left_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_LEFT
-
 
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
@@ -32,9 +28,6 @@ def time_out(e):
 
 # time_out = lambda e : e[0] == 'TIME_OUT'
 
-
-
-
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0  # Km / Hour
@@ -46,16 +39,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
-
-
-
-
-
-
-
-
-
-
 
 class Idle:
 
@@ -86,8 +69,6 @@ class Idle:
     def draw(boy):
         boy.image.clip_draw(int(boy.frame) * 100, boy.action * 100, 100, 100, boy.x, boy.y)
 
-
-
 class Run:
 
     @staticmethod
@@ -115,8 +96,6 @@ class Run:
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(int(boy.frame) * 100, boy.action * 100, 100, 100, boy.x, boy.y)
-
-
 
 class Sleep:
 
@@ -148,7 +127,6 @@ class Sleep:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100,
                                           3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
 
-
 class StateMachine:
     def __init__(self, boy):
         self.boy = boy
@@ -178,7 +156,6 @@ class StateMachine:
     def draw(self):
         self.cur_state.draw(self.boy)
 
-
 class Boy:
     def __init__(self):
         self.x, self.y = 50, 90
@@ -192,7 +169,6 @@ class Boy:
         self.state_machine.start()
         self.ball_count = 10
         self.x1, self.y1, self.x2, self.y2 = 20, 40, 20, 40
-
 
     def fire_ball(self):
         if self.ball_count > 0:
@@ -220,7 +196,6 @@ class Boy:
     def handle_collision(self, group, other):
         if group == 'boy:ball':
             self.ball_count += 1
-
         if group == 'boy:zombie':
             game_world.remove_object(self)
             game_framework.quit()
